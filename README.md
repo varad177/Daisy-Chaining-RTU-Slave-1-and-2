@@ -5,28 +5,6 @@
 This repository contains PlatformIO firmware for two ESP32 devices configured as Modbus RTU slaves on a shared RS-485 bus. Both devices connect to a Raspberry Pi running the WMIND Edge Gateway, which reads sensor data and forwards it to the WMIND Cloud platform.
 
 ---
-
-## Table of Contents
-
-- [Overview](#overview)
-- [System Architecture](#system-architecture)
-- [Hardware Required](#hardware-required)
-- [Wiring](#wiring)
-  - [Slave 1 — Rotary Encoder](#slave-1--rotary-encoder-wiring)
-  - [Slave 2 — DS18B20 Temperature Sensor](#slave-2--ds18b20-temperature-sensor-wiring)
-  - [MAX485 to ESP32 — Both Slaves](#max485-to-esp32--both-slaves)
-  - [Shared RS-485 Bus](#shared-rs-485-bus)
-- [Modbus Register Map](#modbus-register-map)
-- [Firmware](#firmware)
-  - [Slave 1 — Key Parameters](#slave-1--key-parameters)
-  - [Slave 2 — Key Parameters](#slave-2--key-parameters)
-- [Flashing with PlatformIO](#flashing-with-platformio)
-- [WMIND Cloud Device Registration](#wmind-cloud-device-registration)
-- [How Daisy Chaining Works](#how-daisy-chaining-works)
-- [Troubleshooting](#troubleshooting)
-
----
-
 ## Overview
 
 | Device | Slave ID | Sensor | Modbus Registers | Data Type |
@@ -35,11 +13,6 @@ This repository contains PlatformIO firmware for two ESP32 devices configured as
 | ESP32 Slave 2 | `2` | DS18B20 Temperature (GPIO 14) | `4` and `5` | 32-bit float (°C) |
 
 Both slaves share a single RS-485 two-wire bus and a single RS-485 to USB adapter connected to the Raspberry Pi. No additional serial ports or USB adapters are required.
-
----
-
-## Pin Out Diagram
-
 
 ---
 
@@ -101,6 +74,12 @@ The MAX485 wiring is identical for both slaves. Each ESP32 gets its own MAX485 m
 | B (–) | → Shared bus B wire | Bus | Negative differential line |
 
 > ⚠️ **Warning:** Both DE and RE **must** be connected to GPIO 4. If either pin is left floating, the MAX485 will behave unpredictably and corrupt all traffic on the shared bus, affecting both devices.
+
+---
+
+
+### Pin Out Diagram
+
 
 ---
 
